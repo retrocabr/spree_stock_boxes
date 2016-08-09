@@ -1,0 +1,38 @@
+<% if @check_message > 1 %>
+	$(".registered_items").val("<%= @new_value %>");
+	$("#field2 .check").html("<img src='/assets/admin/ok.png'>");
+<% else %>
+	alert("Produto indisponível!");
+	$("#field2 .check").html("<img src='/assets/admin/not.png'>");
+<% end %>
+
+<% if @new_image %>
+  $("#show-last-item").html("<img src='<%= @new_image %>' />");
+<% else %>
+  message = "<h1 style='text-align:center;margin-top:150px;font-size:3em;'>";
+  message += "SEM IMAGEM<br />";
+  message += "<span class='green'><%= @last_entry %></span>";
+  <% if @check_message == 3 %>
+    message += "<br /><span style='font-size:0.5em'>Item não cadastrado</span>";
+  <% end %>
+  message += "</h1>";
+  $("#show-last-item").html(message);
+<% end %>
+
+// http://stackoverflow.com/questions/6003300/how-to-place-cursor-at-end-of-text-in-textarea-when-tabbed-into
+function focusEndOfTextarea(el) {
+  if (typeof el.selectionStart == "number") {
+    el.selectionStart = el.selectionEnd = el.value.length;
+  } else if (typeof el.createTextRange != "undefined") {
+    el.focus();
+    var range = el.createTextRange();
+    range.collapse(false);
+    range.select();
+  }
+}
+
+setTimeout(function() {
+  $("#stock_items").val("<%= @new_value %>");
+  var textarea = document.getElementById("stock_items");
+  focusEndOfTextarea(textarea);
+}, 1);
