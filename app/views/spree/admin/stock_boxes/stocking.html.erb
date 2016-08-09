@@ -1,16 +1,16 @@
 <% content_for :page_actions do %>
   <li><%= button_link_to t(:back), admin_orders_path, :icon => 'icon-arrow-left' %></li>
 <% end %>
-	
+
 <% content_for :page_title do %>
   Armazenamento de peças no estoque
-<% end %>	
-	
+<% end %>
+
 <div id="stocking-page" class="seven columns">
 
 		<div class="form-row clearfix" id="field1">
 			<h6>Escaneie a caixa desejada</h6>
-			<%= form_tag(stocking_check_admin_stock_boxes_path, method: :post) do %>		
+			<%= form_tag(stocking_check_admin_stock_boxes_path, method: :post) do %>
 				<%= hidden_field_tag 'field_action', 'open' %>
 				<%= text_field_tag 'box_number', '', placeholder: 'Número da caixa' %>
 				<span class="check">carregando..</span>
@@ -35,7 +35,7 @@
 				<%= submit_tag("Não me clique") %>
 			<% end %>
 		</div>
-		
+
 		<div class="form-row clearfix" id="field3" style="display:none;">
 			<%= form_tag(stocking_check_admin_stock_boxes_path, method: :post) do %>
 				<%= hidden_field_tag 'field_action', 'close' %>
@@ -43,14 +43,14 @@
 				<%= hidden_field_tag 'registered_items', '', class: "registered_items" %>
 				<%= hidden_field_tag 'effort_starts_at','' %>
 				<span class="check"></span>
-			<% end %>	
+			<% end %>
 		</div>
-		
+
 		<div class="form-row clearfix" id="next-box" style="display:none;">
 			<h6 class="form-row clearfix">Caixa fechada!</h6>
 			<%= button_link_to "Próxima caixa", "/admin/stocking" %>
 		</div>
-			
+
 </div>
 
 <div id="show-last-item" class="seven columns">
@@ -68,7 +68,7 @@ $("form").on("change", function(){
 	$("#show-last-item").html("carregando..");
 	$.post($(this).attr('action'), $(this).serialize(), null, "script");
 });
-	
+
 
 $("input[type=submit]").on("click", function(e){
 	e.preventDefault();
@@ -76,5 +76,5 @@ $("input[type=submit]").on("click", function(e){
 	var form = $(this).closest("form");
 	$.post($(form).attr('action'), $(form).serialize(), null, "script");
 
-});	
+});
 </script>

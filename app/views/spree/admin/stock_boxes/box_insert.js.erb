@@ -20,19 +20,20 @@
 <% end %>
 
 // http://stackoverflow.com/questions/6003300/how-to-place-cursor-at-end-of-text-in-textarea-when-tabbed-into
-function focusEndOfTextarea(el) {
-  if (typeof el.selectionStart == "number") {
-    el.selectionStart = el.selectionEnd = el.value.length;
-  } else if (typeof el.createTextRange != "undefined") {
-    el.focus();
-    var range = el.createTextRange();
-    range.collapse(false);
-    range.select();
-  }
-}
-
-setTimeout(function() {
-  $("#stock_items").val("<%= @new_value %>");
-  var textarea = document.getElementById("stock_items");
-  focusEndOfTextarea(textarea);
-}, 1);
+// function focusEndOfTextarea(el) {
+//   if (typeof el.selectionStart == "number") {
+//     el.selectionStart = el.selectionEnd = el.value.length;
+//   } else if (typeof el.createTextRange != "undefined") {
+//     el.focus();
+//     var range = el.createTextRange();
+//     range.collapse(false);
+//     range.select();
+//   }
+// }
+//
+// setTimeout(function() {
+//   $("#stock_items").val("<%= @new_value %>");
+//   var textarea = document.getElementById("stock_items");
+//   focusEndOfTextarea(textarea);
+// }, 1);
+$("#stock_items").focus()

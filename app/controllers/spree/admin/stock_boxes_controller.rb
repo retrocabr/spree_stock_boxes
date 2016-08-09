@@ -6,7 +6,7 @@ require 'barby/outputter/png_outputter'
 module Spree
   module Admin
     class StockBoxesController < ResourceController #Spree::Admin::BaseController
-      
+
       # GET /stock_boxes
       # GET /stock_boxes.json
       def index
@@ -28,7 +28,7 @@ module Spree
           format.json { render json: @stock_boxes }
         end
       end
-      
+
       # GET /stock_boxes/1
       # GET /stock_boxes/1.json
       def show
@@ -47,7 +47,7 @@ module Spree
             f.write barcode.to_png(:margin => 3, :xdim => 2, :height => 65)
           end
         end
-        
+
         if params[:print]
           respond_to do |format|
             format.html { render action: "show", layout: "spree/layouts/blank" }
@@ -119,7 +119,7 @@ module Spree
           format.json { head :no_content }
         end
       end
-          
+
       def stocking
 
       end
@@ -136,7 +136,7 @@ module Spree
 
         if params[:field_action] == "insert"
           check = "insert"
-          
+
           @new_image = nil
           registered_items = params[:registered_items]
 
@@ -168,7 +168,7 @@ module Spree
               p.save(validate: false)
               @check_message = 3
             end
-            
+
             if @check_message > 1
               new_value = [registered_items, new_item, ","] - [""]
               @new_value = new_value.join("") if new_value
@@ -177,20 +177,20 @@ module Spree
             product = variant.product if variant
             images = product.images if product
             if images && !images.empty?
-              attachment = images.first.attachment     
+              attachment = images.first.attachment
               @new_image = attachment.url(:product) if attachment
             end
-            
+
             respond_to do |format|
               format.js { render "box_insert" }
-            end  
+            end
           else
             @old_value = registered_items
             respond_to do |format|
               format.js { render "box_insert_error" }
-            end   
+            end
           end
-          
+
         end
 
         if params[:field_action] == "close"
@@ -219,16 +219,16 @@ module Spree
           effort.quantity = total_registered_items
           effort.completed_at = end_at
           effort.save
-                    
+
           respond_to do |format|
             format.js { render "page_reload" }
           end
-                    
+
         end
-        
+
         render nothing: true unless check
       end
-      
+
     end
   end
 end
