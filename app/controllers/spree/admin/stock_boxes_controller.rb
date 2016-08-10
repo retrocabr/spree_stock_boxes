@@ -170,7 +170,7 @@ module Spree
             end
 
             if @check_message > 1
-              new_value = [registered_items, new_item, ","] - [""]
+              new_value = [registered_items, new_item, ", "] - [""]
               @new_value = new_value.join("") if new_value
             end
 

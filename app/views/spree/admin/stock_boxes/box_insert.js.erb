@@ -1,9 +1,9 @@
 <% if @check_message > 1 %>
-	$(".registered_items").val("<%= @new_value %>");
-	$("#field2 .check").html("<img src='/assets/admin/ok.png'>");
+$(".registered_items").val("<%= @new_value %>");
+$("#field2 .check").html("<%= j (image_tag 'admin/ok.png') %>");
 <% else %>
-	alert("Produto indisponível!");
-	$("#field2 .check").html("<img src='/assets/admin/not.png'>");
+alert("Produto indisponível!");
+$("#field2 .check").html("<%= j (image_tag 'admin/not.png') %>");
 <% end %>
 
 <% if @new_image %>
@@ -36,4 +36,5 @@
 //   var textarea = document.getElementById("stock_items");
 //   focusEndOfTextarea(textarea);
 // }, 1);
+$("#stock_items").val("<%= @new_value %>");
 $("#stock_items").focus()
