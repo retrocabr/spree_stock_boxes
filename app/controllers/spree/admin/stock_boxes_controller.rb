@@ -164,7 +164,7 @@ module Spree
               end
             else
               name = "Produto em processo de cadastramento"
-              p = Spree::Product.new(sku: new_item, price: 0, on_hand: 0, name: name, permalink: name.to_url)
+              p = Spree::Product.new(sku: new_item, price: 0, name: name, permalink: name.parameterize)
               p.save(validate: false)
               @check_message = 3
             end
