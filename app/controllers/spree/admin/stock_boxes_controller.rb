@@ -170,7 +170,7 @@ module Spree
             end
 
             if @check_message > 1
-              new_value = [registered_items, new_item, ","] - [""]
+              new_value = [registered_items, new_item, ", "] - [""]
               @new_value = new_value.join("") if new_value
             end
 
@@ -200,7 +200,7 @@ module Spree
           total_registered_items = 0
 
           registered_items = params[:registered_items]
-          registered_items.split(",").each do |v|
+          registered_items.split(", ").each do |v|
             variant = Spree::Variant.find_by_sku(v)
             variant.update_column(:stock_box_id, @box.id)
             variant.update_column(:stocked_by_id, registerer_id)
