@@ -79,7 +79,8 @@ module Spree
       # POST /stock_boxes
       # POST /stock_boxes.json
       def create
-        @stock_box = Spree::StockBox.new(params[:stock_box])
+        @stock_box = Spree::StockBox.new(stock_box_params)
+        @stock_box.quantity = 1 unless @stock_box.quantity
 
         respond_to do |format|
           if @stock_box.save
@@ -190,7 +191,6 @@ module Spree
               format.js { render "box_insert_error" }
             end
           end
-
         end
 
         if params[:field_action] == "close"
@@ -207,18 +207,18 @@ module Spree
             total_registered_items += 1
           end
 
-          start_at = params[:effort_starts_at]
-          end_at = DateTime.now
-          activity = Spree::Activity.find_by_name("Estoque")
-          task = Spree::Task.where(name:"Stocking").where(activity_id:activity.id).first
-          effort = Spree::Effort.new(description: "Estocando produtos na caixa #{@box.number}", started_at: start_at)
-          effort.user_id = registerer_id
-          effort.task_id = task.id
-          effort.object_id = @box.id
-          effort.object_type = "Spree::StockBox"
-          effort.quantity = total_registered_items
-          effort.completed_at = end_at
-          effort.save
+          # start_at = params[:effort_starts_at]
+          # end_at = DateTime.now
+          # activity = Spree::Activity.find_by_name("Estoque")
+          # task = Spree::Task.where(name:"Stocking").where(activity_id:activity.id).first
+          # effort = Spree::Effort.new(description: "Estocando produtos na caixa #{@box.number}", started_at: start_at)
+          # effort.user_id = registerer_id
+          # effort.task_id = task.id
+          # effort.object_id = @box.id
+          # effort.object_type = "Spree::StockBox"
+          # effort.quantity = total_registered_items
+          # effort.completed_at = end_at
+          # effort.save
 
           respond_to do |format|
             format.js { render "page_reload" }
@@ -229,6 +229,11 @@ module Spree
         render nothing: true unless check
       end
 
+      private
+
+      def stock_box_params
+        params.require(:stock_box).permit(:number, :last_check_at, :positionX, :positionY, :positionZ, :quantity)
+      end
     end
   end
 end
