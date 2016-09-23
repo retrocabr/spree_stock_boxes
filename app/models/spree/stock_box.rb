@@ -30,6 +30,10 @@ module Spree
       self.number = number if self.number.blank?
       self.number
     end
+
+     def efforts
+      Spree::Effort.where(object_type: "Spree::StockBox", object_id: id)
+    end
   
   end
 end

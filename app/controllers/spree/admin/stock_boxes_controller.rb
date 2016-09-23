@@ -126,8 +126,22 @@ module Spree
       end
 
       def stocking_check
-        @box = StockBox.find_by_number(params[:box_number])
+        @box = Spree::StockBox.find_by_number(params[:box_number])
         if params[:field_action] == "open"
+
+          if @box
+            task = Spree::Task.where(name: "Stocking").first
+            effort = @box.efforts.where(task_id: task.id).first_or_create
+         
+            effort.started_at ||= Time.now
+            effort.user_id ||= spree_current_user.id
+            effort.object_id ||= @box.id
+            effort.object_type ||= "Spree::StockBox"
+            effort.save
+
+
+          end
+
           check = "open"
           @start_at = DateTime.now
           respond_to do |format|
@@ -195,6 +209,21 @@ module Spree
 
         if params[:field_action] == "close"
           check = "close"
+
+          if @box
+            task = Spree::Task.where(name: "Stocking").first
+            effort = @box.efforts.where(task_id: task.id).first_or_create
+         
+            effort.completed_at ||= Time.now
+            effort.user_id ||= spree_current_user.id
+            effort.object_id ||= @box.id
+            effort.object_type ||= "Spree::StockBox"
+            effort.quantity = params[:registered_items].split(',').size
+            effort.save
+
+
+          end
+
 
           registerer_id = spree_current_user.id
           total_registered_items = 0

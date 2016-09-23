@@ -10,6 +10,10 @@
 
 	<div class="col-md-6 col-sm-6">
 		<div class="form-row" id="field1">
+			<h6>Registrador:</h6>
+					<%= text_field_tag 'registerer', spree_current_user.firstname, :disabled=>true %>
+					<br /><br />
+
 			<h6>Escaneie a caixa desejada</h6>
 			<%= form_tag(stocking_check_admin_stock_boxes_path, method: :post) do %>
 					<%= hidden_field_tag 'field_action', 'open' %>
@@ -22,13 +26,12 @@
 
 		<div class="form-row" id="field2" style="display:none;">
 			<%= form_tag(stocking_check_admin_stock_boxes_path, method: :post) do %>
+					
 					<%= hidden_field_tag 'field_action', 'insert' %>
 					<%= hidden_field_tag 'box_number', '', class: "box" %>
 					<%= hidden_field_tag 'registered_items', '', class: "registered_items" %>
 					<%= hidden_field_tag 'box_number', '', class: "box" %>
-					<h6>Registrador:</h6>
-					<%= text_field_tag 'registerer', spree_current_user.firstname, :disabled=>true %>
-					<br /><br />
+					
 					<h6>Escaneie as peças a serem guardadas</h6>
 					<%= text_area_tag 'stock_items', '', rows: 10, cols: 50, placeholder: 'SKU das peças a serem armazenadas' %>
 					<span class="check"></span>
