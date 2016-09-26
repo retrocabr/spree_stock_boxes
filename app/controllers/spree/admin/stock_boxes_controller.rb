@@ -219,7 +219,7 @@ module Spree
             effort.user_id ||= spree_current_user.id
             effort.object_id ||= @box.id
             effort.object_type ||= "Spree::StockBox"
-            effort.quantity = params[:registered_items].split(',').size -1
+            effort.quantity = (params[:registered_items].split(',').size) -1
             effort.save
 
 
