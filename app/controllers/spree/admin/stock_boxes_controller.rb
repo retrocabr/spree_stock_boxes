@@ -235,6 +235,8 @@ module Spree
             variant.update_column(:stock_box_id, @box.id)
             variant.update_column(:stocked_by_id, registerer_id)
             total_registered_items += 1
+
+            effort.stock_events.create(variant: variant, state: Spree::StockEvent.states[:GUARDADO], stock_box: @box)
           end
 
           # start_at = params[:effort_starts_at]
